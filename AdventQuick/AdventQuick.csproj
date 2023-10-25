@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <StartupObject>AdventQuick.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AOC2016\AOC2016.csproj" />
+    <ProjectReference Include="..\AOC2018\AOC2018.csproj" />
+    <ProjectReference Include="..\AOC2021\AOC2021.csproj" />
+    <ProjectReference Include="..\AOC2022\AOC2022.csproj" />
+  </ItemGroup>
+
+</Project>
