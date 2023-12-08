@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace AOC2022
+namespace AOC2023
 {
     public class Day5
     {
