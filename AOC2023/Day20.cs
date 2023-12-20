@@ -204,10 +204,24 @@ broadcaster -> sh, nm, ps, fs
             }
             count = 1;
             foreach (var kvp in entries)
-                count *= kvp.Value;
+            {
+                var g = Gcd(count, kvp.Value);
+                count = count / g * kvp.Value;
+            }
 
             Console.WriteLine($"2nd star is {count}");
         }
+        public static long Gcd(long a, long b)
+        {
+            while (b != 0)
+            {
+                long c = a % b;
+                a = b;
+                b = c;
+            }
+            return a;
+        }
+
         private static void PushButton2(Dictionary<string, long> sources)
         {
             low++;
@@ -271,7 +285,7 @@ broadcaster -> sh, nm, ps, fs
         public bool conjunction;
         public string name;
         public List<string> targets = new List<string>();
-        public Dictionary<string, bool> entries = new ();
+        public Dictionary<string, bool> entries = new();
 
     }
 }
