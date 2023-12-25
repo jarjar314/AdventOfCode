@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>AOC2023.Day24</StartupObject>
+    <StartupObject>AOC2023.Day25</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
