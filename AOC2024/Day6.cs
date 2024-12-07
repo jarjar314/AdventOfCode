@@ -96,6 +96,5 @@ namespace AOC2024
             ca[obstacle.r][obstacle.c] = '.';
             return loop;
         }
-
     }
 }
