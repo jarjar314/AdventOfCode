@@ -36,9 +36,9 @@ namespace AOC2024
             if (operand == 6) return C;
             throw new NotImplementedException();
         }
-        static void adv(int operand){A = A/Power(2, read(operand));}
-        static void bdv(int operand) { B = A/Power(2, read(operand)); }
-        static void cdv(int operand) { C = A/Power(2, read(operand)); }
+        static void adv(int operand){A = A >> (int)read(operand);}
+        static void bdv(int operand) { B = A >> (int)read(operand); }
+        static void cdv(int operand) { C = A >> (int)read(operand); }
         static void print(int operand) { outs.Add((int)(read(operand)%8)); }
         static void bxc(int operand) { B ^= C; }
         static void bst(int operand) { B = read(operand)%8 ; }
