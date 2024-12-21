@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
@@ -130,8 +131,11 @@ namespace AOC2024
                     lines.Add(sr.ReadLine()!);
                 }
             }
+            var stopwatch = Stopwatch.StartNew();
             part1(lines);
             part2(lines);
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.ElapsedMilliseconds);
         }
 
     }
