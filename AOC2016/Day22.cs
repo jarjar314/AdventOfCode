@@ -7,9 +7,10 @@ using System.Security.Cryptography;
 
 namespace AOC2016
 {
-    public class Day22
+    public partial class Day22
     {
-        static Regex situation = new Regex(@"^/dev/grid/node-x(?<X>[0-9]+)-y(?<Y>[0-9]+) *(?<Size>[0-9]+)T *(?<Used>[0-9]+)T *(?<Available>[0-9]+)T *(?<Use>[0-9]+)%");
+        private static readonly Regex situation = MyRegex();
+        private static readonly int[] directions = [0, 1, 0, -1, 0];
 
         public static void Main()
         {
@@ -915,7 +916,7 @@ Filesystem              Size  Used  Avail  Use%
 /dev/grid/node-x35-y22   89T   68T    21T   76%
 /dev/grid/node-x35-y23   88T   65T    23T   73%
 /dev/grid/node-x35-y24   85T   67T    18T   78%";
-            var status = new Dictionary<(int x, int y), (int size, int used, int available, int percent)>();
+            var status = new Dictionary<(int x, int y), (int size, int used, int available, int percent, bool walkable)>();
             foreach (var cell in input.Split('\n').Skip(2))
             {
                 var match = situation.Match(cell);
@@ -927,11 +928,22 @@ Filesystem              Size  Used  Avail  Use%
                     int used = ReadInt(match, "Used");
                     int available = ReadInt(match, "Available");
                     int percent = ReadInt(match, "Use");
-                    status[(x, y)] = (size, used, available, percent);
+                    bool walkable = used < 100;
+                    status[(x, y)] = (size, used, available, percent, walkable);
                 }
                 else
                     throw new ArgumentException($"{cell} not implemented");
             }
+            int count = FindMatch(status);
+
+            Console.WriteLine($"Part1={count}");
+
+            Part2(status);
+
+        }
+
+        private static int FindMatch(Dictionary<(int x, int y), (int size, int used, int available, int percent, bool walkable)> status)
+        {
             int count = 0;
             foreach (var kvp in status)
             {
@@ -944,15 +956,69 @@ Filesystem              Size  Used  Avail  Use%
                 }
             }
 
-            Console.WriteLine(count);
-
+            return count;
         }
+
+        private static void Part2(Dictionary<(int x, int y), (int size, int used, int available, int percent, bool walkable)> status)
+        {
+            // Find node with 0 used
+            var (x, y) = status.First(kvp => kvp.Value.used == 0).Key;
+            // transform to grid where # is wall, . is free, G is goal data, E is empty
+            // wall is used > 100
+            int maxX = status.Keys.Max(k => k.x);
+            var goal = (maxX, 0);
+            int res = FindStepsBFS(x, y, maxX, 0, status);
+
+            Console.WriteLine($"part2={res}");
+        }
+
+        private static int FindStepsBFS(int xE, int yE, int xG, int yG, Dictionary<(int x, int y), (int size, int used, int available, int percent, bool walkable)> status)
+        {
+            var q = new Queue<((int xE, int yE, int xG, int yG, int xP, int yP) pos, int steps)>();
+            q.Enqueue(((xE, yE, xG, yG, -1, -1), 0));
+            var visited = new HashSet<(int xE, int yE, int xG, int yG)>
+            {
+                (xE, yE, xG, yG)
+            };
+
+            while (q.Count > 0)
+            {
+                var ((xem, yem, xgm, ygm, xpm, ypm), pos) = q.Dequeue();
+                if (0 == xgm && 0 == ygm) return pos;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    int newXE = xem + directions[i];
+                    int newYE = yem + directions[i + 1];
+                    if (newXE == xpm && newYE == ypm) continue; // don't go back to previous position
+                    if (!status.ContainsKey((newXE, newYE))) continue; // out of bounds
+                    if (!status[(newXE, newYE)].walkable) continue; // wall
+                    // move empty to newXE, newYE
+                    int newXG = xgm;
+                    int newYG = ygm;
+                    if (newXE == xgm && newYE == ygm)
+                    {
+                        // we are moving the goal data
+                        newXG = xem;
+                        newYG = yem;
+                    }
+                    var state = (newXE, newYE, newXG, newYG);
+                    if (!visited.Add(state)) continue;
+
+                    q.Enqueue(((newXE, newYE, newXG, newYG, xem, yem), pos + 1));
+                }
+
+            }
+            return int.MaxValue;
+        }
+
         private static int ReadInt(Match match, string key)
         {
             return int.Parse(match.Groups[key].Value);
         }
 
-
+        [GeneratedRegex(@"^/dev/grid/node-x(?<X>[0-9]+)-y(?<Y>[0-9]+) *(?<Size>[0-9]+)T *(?<Used>[0-9]+)T *(?<Available>[0-9]+)T *(?<Use>[0-9]+)%")]
+        private static partial Regex MyRegex();
     }
 
 }

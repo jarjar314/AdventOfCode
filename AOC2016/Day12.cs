@@ -45,7 +45,7 @@ jnz c -5";
         }
     }
 
-    public class Monorail
+    class Monorail
     {
         private int a = 0;
         private int b = 0;

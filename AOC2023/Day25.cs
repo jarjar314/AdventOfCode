@@ -1248,14 +1248,12 @@ frs: qnr lhk lsr";
         private static int maxId = 0;
         private static Dictionary<int, HashSet<(int node, string path)>> connections = new Dictionary<int, HashSet<(int node, string path)>>();
         private static Dictionary<string, int> map = new Dictionary<string, int>();
-        private static List<(int a, int b)> connects = new List<(int a, int b)>();
         private static List<string> conns = new List<string>();
         private static void part1(string input)
         {
             // init
             connections.Clear();
             map.Clear();
-            connects.Clear();
             conns.Clear();
             maxId = 0;
 
@@ -1352,7 +1350,6 @@ frs: qnr lhk lsr";
                 connections[ti] = tt = new HashSet<(int, string)>();
             fr.Add((ti, $"{from}-{to}"));
             tt.Add((fi, $"{from}-{to}"));
-            connects.Add((fi, ti));
         }
         private static int GetId(string input)
         {

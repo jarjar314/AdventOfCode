@@ -8,7 +8,7 @@ namespace AdventQuick
     {
         public static void Main()
         {
-            AOC2016.Day1.Main();
+            AOC2016.Day25.Main();
             var diag = Stopwatch.StartNew();
             var dico = new Dictionary<int, int>();
             for (int i = 0; ; i++)
