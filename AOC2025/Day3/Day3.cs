@@ -66,5 +66,20 @@ namespace AOC2025
             }
             return sb.ToString();
         }
+
+        private static long FindMaxOther(string s, int parts)
+        {
+            int n = s.Length;
+            var res = new long[parts + 1];
+            foreach (var c in s)
+            {
+                long d = c - '0';
+                for (int i = parts; i > 0; i--)
+                {
+                    res[i] = Math.Max(res[i], res[i - 1] * 10 + d);
+                }
+            }
+            return res[parts];
+        }
     }
 }
