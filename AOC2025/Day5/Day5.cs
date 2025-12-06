@@ -77,11 +77,11 @@ namespace AOC2025
                 else
                 {
                     var l = line.Split('-');
-                    ranges.Add(new[] { long.Parse(l[0]), long.Parse(l[1]) });
+                    ranges.Add([long.Parse(l[0]), long.Parse(l[1])]);
                 }
             }
             long count = 0;
-            var res = Merge(ranges.ToArray());
+            var res = Merge([.. ranges]);
             foreach (var range in res)
             {
                 count += range[1] - range[0] + 1;
@@ -103,7 +103,7 @@ namespace AOC2025
                 var next = l[i];
                 if (next[0] > end)
                 {
-                    res.Add(new long[] { start, end });
+                    res.Add([start, end]);
                     start = next[0];
                     end = next[1];
                 }
@@ -112,8 +112,8 @@ namespace AOC2025
                     end = Math.Max(next[1], end);
                 }
             }
-            res.Add(new long[] { start, end });
-            return res.ToArray();
+            res.Add([start, end]);
+            return [.. res];
         }
 
     }

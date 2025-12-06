@@ -31,7 +31,7 @@ namespace AOC2025
                 {
                     var s = start.ToString();
                     for (int i = 1; i <= s.Length / 2; i++)
-                    if (isInvalid(start.ToString(), i))
+                    if (IsInvalid(start.ToString(), i))
                     {
                         invalidIds.Add(start);
                         sum += start;
@@ -58,7 +58,7 @@ namespace AOC2025
                     var s = start.ToString();
                     var n = s.Length;
                     
-                    if (n % 2 == 0 && isInvalid(start.ToString(), start.ToString().Length / 2))
+                    if (n % 2 == 0 && IsInvalid(start.ToString(), start.ToString().Length / 2))
                     {
                         invalidIds.Add(start);
                         sum += start;
@@ -69,7 +69,7 @@ namespace AOC2025
             Console.WriteLine($"part1={sum}");
         }
 
-        private static bool isInvalid(string s, int n)
+        private static bool IsInvalid(string s, int n)
         {
             if (n == 0) return false; // use case s of size 1.
             if (s.Length % n != 0) return false;

@@ -69,7 +69,6 @@ namespace AOC2025
 
         private static long FindMaxOther(string s, int parts)
         {
-            int n = s.Length;
             var res = new long[parts + 1];
             foreach (var c in s)
             {

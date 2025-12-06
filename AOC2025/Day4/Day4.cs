@@ -16,13 +16,13 @@ namespace AOC2025
         }
         private static List<char[]> l;
         private static int m, n;
-        private static char Roll = '@';
-        private static char Empty = '.';
+        private static readonly char Roll = '@';
+        private static readonly char Empty = '.';
         public static void Process(string fileName)
         {
             Console.WriteLine($"Processing {fileName}...");
             using var reader = new System.IO.StreamReader(fileName);
-            l = new List<char[]>();
+            l = [];
             while (!reader.EndOfStream)
             {
                 l.Add(reader.ReadLine().ToCharArray());
@@ -60,7 +60,7 @@ namespace AOC2025
         {
             Console.WriteLine($"Processing {fileName}...");
             using var reader = new System.IO.StreamReader(fileName);
-            l = new List<char[]>();
+            l = [];
             while (!reader.EndOfStream)
             {
                 l.Add(reader.ReadLine().ToCharArray());
