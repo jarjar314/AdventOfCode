@@ -15,7 +15,6 @@ namespace AOC2025
         }
         public static void Process(string fileName)
         {
-            long res = 0;
             Console.WriteLine($"Processing {fileName}...");
             using var reader = new System.IO.StreamReader(fileName);
             var l = new List<char[]>();
@@ -31,7 +30,7 @@ namespace AOC2025
                 {
                     if (l[i][j] == 'S')
                     {
-                        HashSet<int> beams = new HashSet<int>() { j };
+                        HashSet<int> beams = [j];
                         int r = i + 1;
                         while (r < m)
                         {
@@ -63,7 +62,6 @@ namespace AOC2025
         }
         public static void Process2(string fileName)
         {
-            long res = 0;
             Console.WriteLine($"Processing {fileName}...");
             using var reader = new System.IO.StreamReader(fileName);
             var l = new List<char[]>();
@@ -72,7 +70,7 @@ namespace AOC2025
                 l.Add(reader.ReadLine()!.ToCharArray());
             }
             int m = l.Count, n = l[0].Length;
-            Dictionary<int, long> beams = new Dictionary<int, long>();
+            Dictionary<int, long> beams = [];
             int count = 0;
             for (int i = 0; i < m; i++)
             {
