@@ -89,11 +89,9 @@ namespace AOC2025
                     count = l[pair.i][0] * l[pair.j][0];
                     break;
                 }
-
             }
 
             Console.WriteLine($"Part 2 : {fileName} : {count}");
-
         }
     }
     public class UnionFind
